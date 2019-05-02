@@ -8,8 +8,8 @@ configuration:
   - Release
 
 environment:
-  - itk_tag: v4.13.2
-  - zip_name: itk_%itk_tag%_windows_%PLATFORM%
+  itk_tag: v4.13.2
+  zip_name: itk_%itk_tag%_windows_%PLATFORM%
 
 install:
   - git clone -branch %itk_tag% https://github.com/InsightSoftwareConsortium/ITK.git
