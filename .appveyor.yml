@@ -4,14 +4,10 @@ image:
 platform:
   - Win32
 
-configuration:
-  - Release
-
 environment:
   itk_tag: v4.13.2
   toolset: v90
   zip_name: itk_%itk_tag%_windows_%PLATFORM%_%toolset%
-
 
 install:
   - git clone -b %itk_tag% https://github.com/InsightSoftwareConsortium/ITK.git
@@ -22,7 +18,7 @@ before_build:
 
 build_script:
   - cd %APPVEYOR_BUILD_FOLDER%\ITK\bin
-  - cmake --build . --config %CONFIGURATION% --target INSTALL
+  - cmake --build . --config RELEASE --target INSTALL
 
 after_build:
   - cd %APPVEYOR_BUILD_FOLDER%\install
@@ -36,6 +32,7 @@ artifacts:
 
 deploy:
   provider: GitHub
+  release: %zip_name%
   auth_token:
     secure: J21nvYa1j0K5KlxFo+HRmHh7usNai+gOoSjwYFCbYuVfip3buosHdN99ltY677MY
   draft: false
