@@ -1,5 +1,5 @@
 image:
-  - Visual Studio 2017
+  - Visual Studio 2015
 
 platform:
   - Win32
@@ -10,7 +10,7 @@ environment:
   zip_name: itk_%itk_tag%_windows_%PLATFORM%_%toolset%
   matrix:
   - toolset: v90
-  - toolset: v141
+  - toolset: v140
 
 install:
   - git clone -b %itk_tag% https://github.com/InsightSoftwareConsortium/ITK.git
