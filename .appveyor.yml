@@ -32,7 +32,7 @@ artifacts:
 
 deploy:
   provider: GitHub
-  release: %zip_name%
+  release: %(zip_name)
   auth_token:
     secure: J21nvYa1j0K5KlxFo+HRmHh7usNai+gOoSjwYFCbYuVfip3buosHdN99ltY677MY
   draft: false
