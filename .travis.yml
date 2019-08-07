@@ -15,12 +15,14 @@ env:
     - ZIP_NAME: itk_${itk_tag}_${TRAVIS_OS_NAME}_${compiler}
 
 install:
+  - cd ${TRAVIS_BUILD_DIR}
   - git clone -b ${itk_tag} https://github.com/InsightSoftwareConsortium/ITK.git
 
 script:
   - cd ${TRAVIS_BUILD_DIR}/ITK
   - cmake . -Bbin -DCMAKE_INSTALL_PREFIX=${TRAVIS_BUILD_DIR}/install -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DModule_ITK_VtkGlue=ON -DINSTALL_GTEST=OFF -DITK_DOXYGEN_HTML=OFF
   - cd ${TRAVIS_BUILD_DIR}/ITK/bin
+  - ls
   - cmake --build . --config RELEASE --target INSTALL
 
 after_success:
