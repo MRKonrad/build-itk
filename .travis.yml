@@ -17,12 +17,11 @@ addons:
 
 env:
   matrix:
-  - CXX_STANDARD=98
-  # - CXX_STANDARD=11
+    - CXX_STANDARD=98
+    # - CXX_STANDARD=11
   global:
     - secure: ${GH_PERSONAL_ACCESS_TOKEN}
     - ITK_TAG: v4.13.2
-    - ZIP_NAME: itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${CXX}_CXX${CXX_STANDARD}
 
 install:
   - cd ${TRAVIS_BUILD_DIR}
@@ -36,6 +35,14 @@ script:
   - cmake --build . --config RELEASE --target install
 
 after_success:
+  - export ZIP_NAME=itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${CXX}_CXX${CXX_STANDARD}
+  - echo ${ZIP_NAME}
+  - echo "cxx" %CXX
+  - echo "CXX_STANDARD" %CXX_STANDARD
+  - echo "TRAVIS_COMPILER" %TRAVIS_COMPILER
+  - echo "cxx" ${CXX}
+  - echo "CXX_STANDARD" ${CXX_STANDARD}
+  - echo "TRAVIS_COMPILER" ${TRAVIS_COMPILER}
   - cd ${TRAVIS_BUILD_DIR}/install
   - zip -r ${ZIP_NAME}.zip * # zip
   - cd ${TRAVIS_BUILD_DIR}
