@@ -24,14 +24,6 @@ env:
     - ITK_TAG: v4.13.2
 
 install:
-  - export ZIP_NAME=itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${CXX}_CXX${CXX_STANDARD}
-  - echo ${ZIP_NAME}
-  - echo "cxx" %CXX
-  - echo "CXX_STANDARD" %CXX_STANDARD
-  - echo "TRAVIS_COMPILER" %TRAVIS_COMPILER
-  - echo "cxx" ${CXX}
-  - echo "CXX_STANDARD" ${CXX_STANDARD}
-  - echo "TRAVIS_COMPILER" ${TRAVIS_COMPILER}
   - cd ${TRAVIS_BUILD_DIR}
   - git clone -b ${ITK_TAG} https://github.com/InsightSoftwareConsortium/ITK.git
 
@@ -44,13 +36,6 @@ script:
 
 after_success:
   - export ZIP_NAME=itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${CXX}_CXX${CXX_STANDARD}
-  - echo ${ZIP_NAME}
-  - echo "cxx" %CXX
-  - echo "CXX_STANDARD" %CXX_STANDARD
-  - echo "TRAVIS_COMPILER" %TRAVIS_COMPILER
-  - echo "cxx" ${CXX}
-  - echo "CXX_STANDARD" ${CXX_STANDARD}
-  - echo "TRAVIS_COMPILER" ${TRAVIS_COMPILER}
   - cd ${TRAVIS_BUILD_DIR}/install
   - zip -r ${ZIP_NAME}.zip * # zip
   - cd ${TRAVIS_BUILD_DIR}
