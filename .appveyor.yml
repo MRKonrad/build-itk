@@ -12,32 +12,32 @@ environment:
   - toolset: v90
   - toolset: v140
 
-install:
-  - git clone -b %ITK_TAG% https://github.com/InsightSoftwareConsortium/ITK.git
-
-before_build:
-  - cd %APPVEYOR_BUILD_FOLDER%\ITK
-  - cmake . -Bbin -A%PLATFORM% -T%toolset% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\install -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DModule_ITK_VtkGlue=ON -DINSTALL_GTEST=OFF -DITK_DOXYGEN_HTML=OFF
-
-build_script:
-  - cd %APPVEYOR_BUILD_FOLDER%\ITK\bin
-  - cmake --build . --config RELEASE --target INSTALL
-
-after_build:
-  - cd %APPVEYOR_BUILD_FOLDER%\install
-  - 7z a %ZIP_NAME%.zip * -r # zip
-  - cd %APPVEYOR_BUILD_FOLDER%
-  - mkdir deployment
-  - copy install\%ZIP_NAME%.zip deployment\%ZIP_NAME%.zip
-
-artifacts:
-  - path: deployment\*.*
-
-deploy:
-  provider: GitHub
-  release: itk_$(ITK_TAG)
-  auth_token:
-    secure: J21nvYa1j0K5KlxFo+HRmHh7usNai+gOoSjwYFCbYuVfip3buosHdN99ltY677MY
-  draft: false
-  prerelease: false
-  force_update: true
+# install:
+#   - git clone -b %ITK_TAG% https://github.com/InsightSoftwareConsortium/ITK.git
+#
+# before_build:
+#   - cd %APPVEYOR_BUILD_FOLDER%\ITK
+#   - cmake . -Bbin -A%PLATFORM% -T%toolset% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%\install -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DModule_ITK_VtkGlue=ON -DINSTALL_GTEST=OFF -DITK_DOXYGEN_HTML=OFF
+#
+# build_script:
+#   - cd %APPVEYOR_BUILD_FOLDER%\ITK\bin
+#   - cmake --build . --config RELEASE --target INSTALL
+#
+# after_build:
+#   - cd %APPVEYOR_BUILD_FOLDER%\install
+#   - 7z a %ZIP_NAME%.zip * -r # zip
+#   - cd %APPVEYOR_BUILD_FOLDER%
+#   - mkdir deployment
+#   - copy install\%ZIP_NAME%.zip deployment\%ZIP_NAME%.zip
+#
+# artifacts:
+#   - path: deployment\*.*
+#
+# deploy:
+#   provider: GitHub
+#   release: itk_$(ITK_TAG)
+#   auth_token:
+#     secure: J21nvYa1j0K5KlxFo+HRmHh7usNai+gOoSjwYFCbYuVfip3buosHdN99ltY677MY
+#   draft: false
+#   prerelease: false
+#   force_update: true
