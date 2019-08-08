@@ -27,7 +27,7 @@ script:
 
 after_success:
   - cd ${TRAVIS_BUILD_DIR}/install
-  - 7z a ${ZIP_NAME}.zip * -r # zip
+  - zip -r ${ZIP_NAME}.zip * # zip
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir deployment
   - copy install/${ZIP_NAME}.zip deployment/${ZIP_NAME}.zip
