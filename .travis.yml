@@ -30,7 +30,7 @@ after_success:
   - zip -r ${ZIP_NAME}.zip * # zip
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir deployment
-  - copy install/${ZIP_NAME}.zip deployment/${ZIP_NAME}.zip
+  - cp install/${ZIP_NAME}.zip deployment/${ZIP_NAME}.zip
 
 # before_deploy:
 #   # Set up git user name and tag this commit
