@@ -11,18 +11,18 @@ compiler:
 env:
   global:
     - secure: ${GH_PERSONAL_ACCESS_TOKEN}
-    - itk_tag: v4.13.2
-    - ZIP_NAME: itk_${itk_tag}_${TRAVIS_OS_NAME}_${compiler}
+    - ITK_TAG: v4.13.2
+    - ZIP_NAME: itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${compiler}
 
 install:
   - cd ${TRAVIS_BUILD_DIR}
-  - git clone -b ${itk_tag} https://github.com/InsightSoftwareConsortium/ITK.git
+  - git clone -b ${ITK_TAG} https://github.com/InsightSoftwareConsortium/ITK.git
 
 script:
   - cd ${TRAVIS_BUILD_DIR}/ITK
   - cmake . -Bbin -DCMAKE_INSTALL_PREFIX=${TRAVIS_BUILD_DIR}/install -DBUILD_EXAMPLES=OFF -DBUILD_TESTING=OFF -DModule_ITK_VtkGlue=ON -DINSTALL_GTEST=OFF -DITK_DOXYGEN_HTML=OFF
   - cd ${TRAVIS_BUILD_DIR}/ITK/bin
-  - cmake --build . --config RELEASE 
+  - cmake --build . --config RELEASE
   - cmake --build . --config RELEASE --target install
 
 after_success:
@@ -32,17 +32,20 @@ after_success:
   - mkdir deployment
   - copy install/${ZIP_NAME}.zip deployment/${ZIP_NAME}.zip
 
-before_deploy:
-  # Set up git user name and tag this commit
-  - git config --local user.name "MRKonrad"
-  - git config --local user.email "konradwerys2@gmail.com"
-  - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-  - git tag $TRAVIS_TAG
+# before_deploy:
+#   # Set up git user name and tag this commit
+#   - git config --local user.name "MRKonrad"
+#   - git config --local user.email "konradwerys2@gmail.com"
+#   - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
+#   - git tag $TRAVIS_TAG
 
 deploy:
   provider: releases # GitHub
+  name: itk_${ITK_TAG}
   api_key:
     secure: ${GH_PERSONAL_ACCESS_TOKEN}
   file_glob: ON # to use wildcards
   file: deployment/*
   skip_cleanup: ON
+  on:
+    tags: true
