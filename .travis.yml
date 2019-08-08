@@ -12,7 +12,7 @@ env:
   global:
     - secure: ${GH_PERSONAL_ACCESS_TOKEN}
     - ITK_TAG: v4.13.2
-    - ZIP_NAME: itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${compiler}
+    - ZIP_NAME: itk_${ITK_TAG}_${TRAVIS_OS_NAME}_${TRAVIS_COMPILER}
 
 install:
   - cd ${TRAVIS_BUILD_DIR}
@@ -31,13 +31,6 @@ after_success:
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir deployment
   - cp install/${ZIP_NAME}.zip deployment/${ZIP_NAME}.zip
-
-# before_deploy:
-#   # Set up git user name and tag this commit
-#   - git config --local user.name "MRKonrad"
-#   - git config --local user.email "konradwerys2@gmail.com"
-#   - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
-#   - git tag $TRAVIS_TAG
 
 deploy:
   provider: releases # GitHub
