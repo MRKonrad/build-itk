@@ -21,7 +21,7 @@ env:
     # - CXX_STANDARD=11
   global:
     - secure: ${GH_PERSONAL_ACCESS_TOKEN}
-    - ITK_TAG: v4.13.2
+    - ITK_TAG: v4.13.0
 
 install:
   - cd ${TRAVIS_BUILD_DIR}
