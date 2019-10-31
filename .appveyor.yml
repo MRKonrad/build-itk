@@ -6,7 +6,7 @@ platform:
   - x64
 
 environment:
-  ITK_TAG: v4.13.0
+  ITK_TAG: v4.12.0
   ZIP_NAME: itk_%ITK_TAG%_windows_%PLATFORM%_%toolset%
   matrix:
   - toolset: v90
